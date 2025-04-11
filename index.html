@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Barbearia VIP</title>
+  <style>
+    body { font-family: Arial; background: #111; color: white; text-align: center; padding: 2rem; }
+    input, select, button { padding: 10px; margin: 10px; border-radius: 5px; border: none; }
+    #app, #agendamento { display: none; }
+  </style>
+</head>
+<body>
+
+  <div id="login">
+    <h2>Login</h2>
+    <input id="email" type="email" placeholder="Email autorizado"><br>
+    <input id="senha" type="password" placeholder="Senha"><br>
+    <button onclick="logar()">Entrar</button>
+  </div>
+
+  <div id="app">
+    <h2>Bem-vindo à Barbearia VIP</h2>
+    <p>Escolha seu barbeiro:</p>
+    <select id="barbeiro">
+      <option value="João">João</option>
+      <option value="Carlos">Carlos</option>
+      <option value="Marcos">Marcos</option>
+    </select><br>
+    <button onclick="irParaAgendamento()">Agendar</button>
+  </div>
+
+  <div id="agendamento">
+    <h2>Agendamento</h2>
+    <p>Barbeiro selecionado: <span id="barbeiroSelecionado"></span></p>
+    <input type="date" id="data"><br>
+    <input type="time" id="hora"><br>
+    <button onclick="confirmarAgendamento()">Confirmar</button>
+  </div>
+
+  <script>
+    const usuarios = [
+      { email: "admin@barba.com", senha: "1234" },
+      { email: "cliente@vip.com", senha: "abcd" }
+    ];
+
+    function logar() {
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      const user = usuarios.find(u => u.email === email && u.senha === senha);
+
+      if (user) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").style.display = "block";
+      } else {
+        alert("Acesso negado!");
+      }
+    }
+
+    function irParaAgendamento() {
+      const barbeiro = document.getElementById("barbeiro").value;
+      document.getElementById("app").style.display = "none";
+      document.getElementById("agendamento").style.display = "block";
+      document.getElementById("barbeiroSelecionado").innerText = barbeiro;
+    }
+
+    function confirmarAgendamento() {
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+      alert(`Agendado com sucesso para ${data} às ${hora}!`);
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>
